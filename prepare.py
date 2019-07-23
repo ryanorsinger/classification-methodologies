@@ -93,17 +93,28 @@ def prepare_titanic_data(df):
 # Research the inverse_transform method of the label encoder. How might this be useful?
 # Create a function named prep_iris that accepts the untransformed iris data, and returns the data with the transformations above applied.
 
-def prepare_iris_data(df):
+def prepare_iris_data(df, encode=True):
     """ 
         0 == 'setosa'
         1 == 'versicolor'
         2 == 'virginica'
+
+        This function will encode the species by default, but can optionally show the species name as a string when the second argument is False.
+
+        prepare_iris_data(df) returns encoded species name
+        prepare_iris_data(df, False) returns species name
+
     """
+    
+    # Drop primary/foreign keys
     df = df.drop(columns=["measurement_id", "species_id"])
+
+    # Rename "species_name" to species
     df = df.rename(columns={"species_name": "species"})
 
-    encoder = LabelEncoder()
-    encoder.fit(df.species)
-    df.species = encoder.transform(df.species)
+    if(encode):
+        encoder = LabelEncoder()
+        encoder.fit(df.species)
+        df.species = encoder.transform(df.species)
 
     return df
