@@ -13,9 +13,7 @@ warnings.filterwarnings("ignore")
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import MinMaxScaler
 
-from acquire import get_titanic_data
-
-df = get_titanic_data()
+from acquire import get_titanic_data, get_iris_data
 
 def prepare_titanic_data(df):
     """
@@ -76,12 +74,36 @@ def prepare_titanic_data(df):
 
     scaler = MinMaxScaler()
     scaler.fit(df[['fare']])
-    df.fare = scaler.transform(df[['fare']])
+    df["fare_scaled"] = scaler.transform(df[['fare']])
 
     scaler = MinMaxScaler()
     scaler.fit(df[['age']])
-    df.age = scaler.transform(df[['age']])
+    df["age_scaled"] = scaler.transform(df[['age']])
 
     # Set the index to the passenger id
     df = df.set_index("passenger_id")
+    return df
+
+
+# Iris Data
+# Use the function defined in acquire.py to load the iris data.
+# Drop the species_id and measurement_id columns.
+# Rename the species_name column to just species.
+# Encode the species name using a sklearn label encoder. 
+# Research the inverse_transform method of the label encoder. How might this be useful?
+# Create a function named prep_iris that accepts the untransformed iris data, and returns the data with the transformations above applied.
+
+def prepare_iris_data(df):
+    """ 
+        0 == 'setosa'
+        1 == 'versicolor'
+        2 == 'virginica'
+    """
+    df = df.drop(columns=["measurement_id", "species_id"])
+    df = df.rename(columns={"species_name": "species"})
+
+    encoder = LabelEncoder()
+    encoder.fit(df.species)
+    df.species = encoder.transform(df.species)
+
     return df
