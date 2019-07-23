@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 
 import matplotlib.pyplot as plt
-%matplotlib inline
 import seaborn as sns
 
 # ignore warnings
@@ -17,12 +16,6 @@ from sklearn.preprocessing import MinMaxScaler
 from acquire import get_titanic_data
 
 df = get_titanic_data()
-
-# Encodings for "Embarked" column
-# 2 == "S" == 644 people
-# 0 == "C" == 168 people
-# 1 == "Q" == 77 people
-# 3 == "Unknown" == 2 people
 
 def prepare_titanic_data(df):
     """
@@ -89,10 +82,6 @@ def prepare_titanic_data(df):
     scaler.fit(df[['age']])
     df.age = scaler.transform(df[['age']])
 
-
-
+    # Set the index to the passenger id
+    df = df.set_index("passenger_id")
     return df
-
-# df = prepare_titanic_data(df)
-# df.head(50) 
-
