@@ -60,13 +60,13 @@ def prepare_titanic_data(df):
     # Second class == 1
     # Third class == 2
     encoder.fit(df["class"])
-    df["class"] = encoder.transform(df["class"])
+    df["class_encoded"] = encoder.transform(df["class"])
 
     # Encode gender
     # male == 1 == 577 records
     # female == 0 == 314 records
     encoder.fit(df.sex)
-    df.sex = encoder.transform(df.sex)
+    df["sex_encoded"] = encoder.transform(df.sex)
 
     # Handle the 177 records with missing age values
     average_age = df.age.mean()
