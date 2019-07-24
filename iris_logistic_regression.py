@@ -45,14 +45,12 @@ y_pred = logit.predict(X_train)
 
 y_pred_proba = logit.predict_proba(X_train)
 
-# Evaluate Model
-# Compute the accuracy
+# Evaluate Model and Compute the accuracy
 
 print('Accuracy of Logistic Regression classifier on training set: {:.2f}'
      .format(logit.score(X_train, y_train)))
 
 # Create a confusion matrix
-
 print(confusion_matrix(y_train, y_pred))
 
 # Compute Precision, Recall, F1-score, and Support
