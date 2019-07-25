@@ -71,8 +71,7 @@ from graphviz import Graph
 dot_data = tree.export_graphviz(clf, out_file=None) 
 graph = graphviz.Source(dot_data) 
 
-graph.render('iris_decision_tree', view=True)
-
+graph.render('titanic_decision_tree', view=True)
 
 import eli5
 eli5.explain_weights(clf)
